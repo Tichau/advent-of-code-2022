@@ -1,4 +1,5 @@
 #include "day04.hpp"
+#include <iostream>
 #include <regex>
 
 struct interval {

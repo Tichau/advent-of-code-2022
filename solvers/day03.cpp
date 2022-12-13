@@ -1,5 +1,4 @@
 #include "day03.hpp"
-#include <vector>
 #include <unordered_set>
 
 int day03_part1(std::ifstream& input)

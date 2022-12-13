@@ -9,7 +9,7 @@
 #include "solvers/day03.hpp"
 #include "solvers/day04.hpp"
 
-namespace fs = std::filesystem;
+using std::cout;
 
 int main(int argc, char *argv[]) 
 {
@@ -28,14 +28,14 @@ int main(int argc, char *argv[])
         case 3:
             if (sscanf_s(argv[1], "%d", &day) != 1)
             {
-                std::cout << "usage: aoc2021 [day] [input-path]\n";
+                cout << "usage: aoc2021 [day] [input-path]\n";
             }
 
             file = std::string(argv[2]);
             break;
 
         default:
-            std::cout << "usage: aoc2021 [day] [input-path]\n";
+            cout << "usage: aoc2021 [day] [input-path]\n";
             break;
     }
 
@@ -69,24 +69,24 @@ int main(int argc, char *argv[])
         filePath += "\\" + file;
     }
 
-    std::cout << "### Day " << day << " ###\n";
-    std::cout << "### Parsing input ###\n";
-    std::cout << "Reading: " << filePath << '\n';
+    cout << "### Day " << day << " ###\n";
+    cout << "### Parsing input ###\n";
+    cout << "Reading: " << filePath << '\n';
 
     std::ifstream fileStream(filePath, std::ios_base::in);
 
     if (!fileStream.is_open()) 
     {
-        std::cout << "Failed to open " << filePath << '\n';
+        cout << "Failed to open " << filePath << '\n';
         return -1;
     }
 
-    std::cout << "### Running Part 1 ###\n";
-    std::cout << "Result: " << day04_part1(fileStream) << "\n";
+    cout << "### Running Part 1 ###\n";
+    cout << "Result: " << day04_part1(fileStream) << "\n";
 
     fileStream.seekg(0);
 
-    std::cout << "\n";
-    std::cout << "### Running Part 2 ###\n";
-    std::cout << "Result: " << day04_part2(fileStream) << "\n";
+    cout << "\n";
+    cout << "### Running Part 2 ###\n";
+    cout << "Result: " << day04_part2(fileStream) << "\n";
 }
