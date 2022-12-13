@@ -7,6 +7,7 @@
 #include "solvers/day01.hpp"
 #include "solvers/day02.hpp"
 #include "solvers/day03.hpp"
+#include "solvers/day04.hpp"
 
 namespace fs = std::filesystem;
 
@@ -81,11 +82,11 @@ int main(int argc, char *argv[])
     }
 
     std::cout << "### Running Part 1 ###\n";
-    std::cout << "Result: " << day03_part1(fileStream) << "\n";
+    std::cout << "Result: " << day04_part1(fileStream) << "\n";
 
     fileStream.seekg(0);
 
     std::cout << "\n";
     std::cout << "### Running Part 2 ###\n";
-    std::cout << "Result: " << day03_part2(fileStream) << "\n";
+    std::cout << "Result: " << day04_part2(fileStream) << "\n";
 }
