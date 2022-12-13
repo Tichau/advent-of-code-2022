@@ -70,6 +70,7 @@
         "xtree": "cpp",
         "regex": "cpp",
         "deque": "cpp",
-        "stack": "cpp"
+        "stack": "cpp",
+        "array": "cpp"
     }
 }

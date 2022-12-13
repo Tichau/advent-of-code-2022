@@ -10,6 +10,7 @@
 #include "solvers/day04.hpp"
 #include "solvers/day05.hpp"
 #include "solvers/day06.hpp"
+#include "solvers/day07.hpp"
 
 using std::cout;
 
@@ -84,11 +85,11 @@ int main(int argc, char *argv[])
     }
 
     cout << "### Running Part 1 ###\n";
-    cout << "Result: " << day06_part1(fileStream) << "\n";
+    cout << "Result: " << day07_part1(fileStream) << "\n";
 
     fileStream.seekg(0);
 
     cout << "\n";
     cout << "### Running Part 2 ###\n";
-    cout << "Result: " << day06_part2(fileStream) << "\n";
+    cout << "Result: " << day07_part2(fileStream) << "\n";
 }
