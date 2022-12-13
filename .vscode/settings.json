@@ -68,6 +68,8 @@
         "unordered_set": "cpp",
         "map": "cpp",
         "xtree": "cpp",
-        "regex": "cpp"
+        "regex": "cpp",
+        "deque": "cpp",
+        "stack": "cpp"
     }
 }
