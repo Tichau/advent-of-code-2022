@@ -87,11 +87,11 @@ int main(int argc, char *argv[])
     }
 
     cout << "### Running Part 1 ###\n";
-    cout << "Result: " << day08_part1(fileStream) << "\n";
+    cout << "Result: " << day09_part1(fileStream) << "\n";
 
     fileStream.seekg(0);
 
     cout << "\n";
     cout << "### Running Part 2 ###\n";
-    cout << "Result: " << day08_part2(fileStream) << "\n";
+    cout << "Result: " << day09_part2(fileStream) << "\n";
 }
