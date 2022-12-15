@@ -1,4 +1,4 @@
-#include "day01.hpp"
+#include "day01.h"
 #include <string>
 
 int day01_part1(std::ifstream& input)

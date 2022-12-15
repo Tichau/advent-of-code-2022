@@ -1,17 +1,17 @@
-#include "day04.hpp"
+#include "day04.h"
 #include <iostream>
 #include <regex>
 
-struct interval {
+struct Interval {
     int min;
     int max;
 
-    int isIn(interval &other) 
+    int isIn(Interval &other) 
     { 
         return min >= other.min && max <= other.max; 
     }
 
-    int intersect(interval &other) 
+    int intersect(Interval &other) 
     { 
         return max >= other.min && min <= other.max; 
     }
@@ -33,7 +33,7 @@ int day04_part1(std::ifstream& input)
             std::cout << "Failed to parse line: " << line;
         }
 
-        interval first, second;
+        Interval first, second;
         first.min = stoi(matches[1]);
         first.max = stoi(matches[2]);
         second.min = stoi(matches[3]);
@@ -64,7 +64,7 @@ int day04_part2(std::ifstream& input)
             std::cout << "Failed to parse line: " << line;
         }
 
-        interval first, second;
+        Interval first, second;
         first.min = stoi(matches[1]);
         first.max = stoi(matches[2]);
         second.min = stoi(matches[3]);

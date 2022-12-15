@@ -1,4 +1,4 @@
-#include "day07.hpp"
+#include "day07.h"
 #include <iostream>
 #include <string>
 #include <regex>
@@ -7,13 +7,13 @@
 
 using std::string;
 
-struct entry {
+struct Entry {
     string name;
     bool isDir;
     uint32_t size;
-    entry* parent;
+    Entry* parent;
 
-    entry()
+    Entry()
     {
         name = string();
         isDir = false;
@@ -21,7 +21,7 @@ struct entry {
         parent = nullptr;
     }
 
-    entry(string _name, bool _isDir, uint32_t _size, entry* _parent)
+    Entry(string _name, bool _isDir, uint32_t _size, Entry* _parent)
     {
         name = _name;
         isDir = _isDir;
@@ -30,7 +30,7 @@ struct entry {
     }
 };
 
-enum command 
+enum Command 
 {
     ls, 
     cd,
@@ -38,14 +38,14 @@ enum command
 
 const int MAX_ENTRY = 4096;
 
-void parse(std::ifstream& input, std::array<entry, MAX_ENTRY>& entries, uint32_t& entriesCount)
+void parse(std::ifstream& input, std::array<Entry, MAX_ENTRY>& entries, uint32_t& entriesCount)
 {
     const int MAX_LEN = 32;
     
-    command currentCmd;
-    entry* currentDir = nullptr;
+    Command currentCmd;
+    Entry* currentDir = nullptr;
 
-    entries[entriesCount++] = entry("/", true, 0, nullptr);
+    entries[entriesCount++] = Entry("/", true, 0, nullptr);
 
     while (!input.eof())
     {
@@ -64,11 +64,11 @@ void parse(std::ifstream& input, std::array<entry, MAX_ENTRY>& entries, uint32_t
             const auto cmdName = matches[1].str();
             if (cmdName == "ls")
             {
-                currentCmd = command::ls;
+                currentCmd = Command::ls;
             }
             else if (cmdName == "cd")
             {
-                currentCmd = command::cd;
+                currentCmd = Command::cd;
                 string commandArg = matches[2].str();
                 if (commandArg == "..")
                 {
@@ -76,7 +76,7 @@ void parse(std::ifstream& input, std::array<entry, MAX_ENTRY>& entries, uint32_t
                 }
                 else
                 {
-                    auto result = std::find_if(entries.begin(), entries.end(), [&commandArg, currentDir](const entry &arg) { return arg.name == commandArg && arg.parent == currentDir; });
+                    auto result = std::find_if(entries.begin(), entries.end(), [&commandArg, currentDir](const Entry &arg) { return arg.name == commandArg && arg.parent == currentDir; });
                     if (result == std::end(entries))
                     {
                         std::cerr << "Can't go to directory: " << commandArg;
@@ -98,17 +98,17 @@ void parse(std::ifstream& input, std::array<entry, MAX_ENTRY>& entries, uint32_t
                 exit(1);
             }
         }
-        else if (currentCmd == command::ls)
+        else if (currentCmd == Command::ls)
         {
             std::cmatch matches;
             if (std::regex_match(line, matches, std::regex("dir\\s([a-z]+)")))
             {
                 auto folderName = matches[1].str();
 
-                auto result = std::find_if(entries.begin(), entries.end(), [&folderName, currentDir](const entry &arg) { return arg.name == folderName && arg.parent == currentDir; });
+                auto result = std::find_if(entries.begin(), entries.end(), [&folderName, currentDir](const Entry &arg) { return arg.name == folderName && arg.parent == currentDir; });
                 if (result == std::end(entries))
                 {
-                    entries[entriesCount++] = entry(folderName, true, 0, currentDir);
+                    entries[entriesCount++] = Entry(folderName, true, 0, currentDir);
                 }
             }
             else if (std::regex_match(line, matches, std::regex("([0-9]+)\\s([a-z\\.]+)")))
@@ -116,12 +116,12 @@ void parse(std::ifstream& input, std::array<entry, MAX_ENTRY>& entries, uint32_t
                 uint32_t fileSize = stoi(matches[1].str());
                 auto fileName = matches[2].str();
 
-                auto result = std::find_if(entries.begin(), entries.end(), [&fileName, currentDir](const entry &arg) { return arg.name == fileName && arg.parent == currentDir; });
+                auto result = std::find_if(entries.begin(), entries.end(), [&fileName, currentDir](const Entry &arg) { return arg.name == fileName && arg.parent == currentDir; });
                 if (result == std::end(entries))
                 {
-                    entries[entriesCount++] = entry(fileName, false, fileSize, currentDir);
+                    entries[entriesCount++] = Entry(fileName, false, fileSize, currentDir);
                     // propagate size.
-                    entry* folder = currentDir;
+                    Entry* folder = currentDir;
                     while (folder != nullptr)
                     {
                         folder->size += fileSize;
@@ -145,7 +145,7 @@ void parse(std::ifstream& input, std::array<entry, MAX_ENTRY>& entries, uint32_t
 
 uint32_t day07_part1(std::ifstream& input)
 {
-    std::array<entry, MAX_ENTRY> entries;
+    std::array<Entry, MAX_ENTRY> entries;
     uint32_t entriesCount = 0;
 
     parse(input, entries, entriesCount);
@@ -164,7 +164,7 @@ uint32_t day07_part1(std::ifstream& input)
 
 uint32_t day07_part2(std::ifstream& input)
 {
-    std::array<entry, MAX_ENTRY> entries;
+    std::array<Entry, MAX_ENTRY> entries;
     uint32_t entriesCount = 0;
 
     parse(input, entries, entriesCount);

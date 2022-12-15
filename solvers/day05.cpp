@@ -1,4 +1,4 @@
-#include "day05.hpp"
+#include "day05.h"
 #include <iostream>
 #include <regex>
 #include <stack>

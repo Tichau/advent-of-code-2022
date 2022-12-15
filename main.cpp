@@ -4,14 +4,15 @@
 #include <string>
 #include <chrono>
 
-#include "solvers/day01.hpp"
-#include "solvers/day02.hpp"
-#include "solvers/day03.hpp"
-#include "solvers/day04.hpp"
-#include "solvers/day05.hpp"
-#include "solvers/day06.hpp"
-#include "solvers/day07.hpp"
-#include "solvers/day08.hpp"
+#include "solvers/day01.h"
+#include "solvers/day02.h"
+#include "solvers/day03.h"
+#include "solvers/day04.h"
+#include "solvers/day05.h"
+#include "solvers/day06.h"
+#include "solvers/day07.h"
+#include "solvers/day08.h"
+#include "solvers/day09.h"
 
 using std::cout;
 

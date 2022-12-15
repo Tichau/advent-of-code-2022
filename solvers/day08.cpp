@@ -1,43 +1,43 @@
-#include "day08.hpp"
+#include "day08.h"
 #include <iostream>
 #include <vector>
 #include <assert.h>
 
-struct tree {
+struct Tree {
     uint8_t height;
     bool visible;
 
-    tree(uint8_t _height)
+    Tree(uint8_t _height)
     {
         height = _height;
         visible = false;
     }
 
-    bool isVisibleAndSmallerThan(tree& other)
+    bool isVisibleAndSmallerThan(Tree& other)
     {
         return visible && height < other.height;
     }
 };
 
-struct forest {
-    std::vector<tree> data;
+struct Forest {
+    std::vector<Tree> data;
     uint32_t cols;
     uint32_t rows;
 
-    forest()
+    Forest()
     {
-        data = std::vector<tree>();
+        data = std::vector<Tree>();
         cols = 0;
         rows = 0;
     }
 
-    tree& getTree(uint32_t row, uint32_t col)
+    Tree& getTree(uint32_t row, uint32_t col)
     {
         return data[row * cols + col];
     }
 };
 
-void parse(std::ifstream& input, forest& forest)
+void parse(std::ifstream& input, Forest& forest)
 {
     const int MAX_LEN = 128;
 
@@ -51,7 +51,7 @@ void parse(std::ifstream& input, forest& forest)
 
         for (auto i = 0; i < len; ++i)
         {
-            forest.data.push_back(tree(line[i] - '0'));
+            forest.data.push_back(Tree(line[i] - '0'));
         }
 
         forest.rows++;
@@ -60,7 +60,7 @@ void parse(std::ifstream& input, forest& forest)
 
 uint32_t day08_part1(std::ifstream& input)
 {
-    forest data;
+    Forest data;
     parse(input, data);
 
     // Left to right
@@ -69,7 +69,7 @@ uint32_t day08_part1(std::ifstream& input)
         int height = -1;
         for (uint32_t col = 0; col < data.cols; ++col)
         {
-            tree& tree = data.getTree(row, col);
+            Tree& tree = data.getTree(row, col);
             if (tree.height > height)
             {
                 tree.visible = true;
@@ -85,7 +85,7 @@ uint32_t day08_part1(std::ifstream& input)
         int height = -1;
         for (uint32_t col = 0; col < data.cols; ++col)
         {
-            tree& tree = data.getTree(row, data.cols - 1 - col);
+            Tree& tree = data.getTree(row, data.cols - 1 - col);
             if (tree.height > height)
             {
                 tree.visible = true;
@@ -101,7 +101,7 @@ uint32_t day08_part1(std::ifstream& input)
         int height = -1;
         for (uint32_t row = 0; row < data.rows; ++row)
         {
-            tree& tree = data.getTree(row, col);
+            Tree& tree = data.getTree(row, col);
             if (tree.height > height)
             {
                 tree.visible = true;
@@ -117,7 +117,7 @@ uint32_t day08_part1(std::ifstream& input)
         int height = -1;
         for (uint32_t row = 0; row < data.rows; ++row)
         {
-            tree& tree = data.getTree(data.rows - 1 - row, col);
+            Tree& tree = data.getTree(data.rows - 1 - row, col);
             if (tree.height > height)
             {
                 tree.visible = true;
@@ -141,7 +141,7 @@ uint32_t day08_part1(std::ifstream& input)
 
 uint32_t day08_part2(std::ifstream& input)
 {
-    forest data;
+    Forest data;
     parse(input, data);
 
     int maxScore = 0;
@@ -149,14 +149,14 @@ uint32_t day08_part2(std::ifstream& input)
     {
         for (uint32_t col = 0; col < data.cols; ++col)
         {
-            tree& house = data.getTree(row, col);
+            Tree& house = data.getTree(row, col);
             int score = 0;
 
             // Left
             int leftDistance = 0;
             for (int i = col - 1; i >= 0; i--)
             {
-                tree& other = data.getTree(row, i);
+                Tree& other = data.getTree(row, i);
                 leftDistance++;
                 if (other.height >= house.height)
                 {
@@ -168,7 +168,7 @@ uint32_t day08_part2(std::ifstream& input)
             int rightDistance = 0;
             for (int i = col + 1; i < (int)data.cols; i++)
             {
-                tree& other = data.getTree(row, i);
+                Tree& other = data.getTree(row, i);
                 rightDistance++;
                 if (other.height >= house.height)
                 {
@@ -180,7 +180,7 @@ uint32_t day08_part2(std::ifstream& input)
             int topDistance = 0;
             for (int i = row - 1; i >= 0; i--)
             {
-                tree& other = data.getTree(i, col);
+                Tree& other = data.getTree(i, col);
                 topDistance++;
                 if (other.height >= house.height)
                 {
@@ -192,7 +192,7 @@ uint32_t day08_part2(std::ifstream& input)
             int bottomDistance = 0;
             for (int i = row + 1; i < (int)data.rows; i++)
             {
-                tree& other = data.getTree(i, col);
+                Tree& other = data.getTree(i, col);
                 bottomDistance++;
                 if (other.height >= house.height)
                 {

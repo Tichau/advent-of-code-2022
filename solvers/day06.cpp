@@ -1,4 +1,4 @@
-#include "day06.hpp"
+#include "day06.h"
 #include <unordered_set>
 
 uint32_t day06_part1(std::ifstream& input)
