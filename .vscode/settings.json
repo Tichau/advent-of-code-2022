@@ -71,6 +71,7 @@
         "regex": "cpp",
         "deque": "cpp",
         "stack": "cpp",
-        "array": "cpp"
+        "array": "cpp",
+        "queue": "cpp"
     }
 }
