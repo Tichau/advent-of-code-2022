@@ -7,6 +7,7 @@ enable_testing()
 file(GLOB all_SRCS 
     "main.cpp" 
     "solvers/*.cpp"
+    "utils/*.cpp"
     )
 
 add_executable(aoc-2022 ${all_SRCS})

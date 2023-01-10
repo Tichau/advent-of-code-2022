@@ -4,15 +4,10 @@
 #include <unordered_set>
 #include <regex>
 
+#include "../utils/pos.h"
+
 using std::vector;
 using std::unordered_set;
-
-enum class Direction {
-    right,
-    up, 
-    left,
-    down,
-};
 
 struct Move {
     Direction direction;
@@ -22,93 +17,6 @@ struct Move {
     {
         direction = _direction;
         steps = _steps;
-    }
-};
-
-struct Pos {
-    int16_t x;
-    int16_t y;
-
-    Pos()
-    {
-        x = 0;
-        y = 0;
-    }
-
-    Pos(int16_t _x, int16_t _y)
-    {
-        x = _x;
-        y = _y;
-    }
-
-    int16_t distance(const Pos& other)
-    {
-        return __max(abs(x - other.x), abs(y - other.y));
-    }
-
-    void move_toward(Direction direction)
-    {
-        switch (direction)
-        {
-            case Direction::right:
-                x++;
-                break;
-
-            case Direction::up:
-                y++;
-                break;
-
-            case Direction::left:
-                x--;
-                break;
-
-            case Direction::down:
-                y--;
-                break;
-        }
-    }
-
-    void move_toward(const Pos& head)
-    {
-        if (distance(head) <= 1)
-        {
-            return;
-        }
-        
-        if (head.x - x > 0)
-        {
-            x += 1;
-        }
-        else if (x - head.x > 0)
-        {
-            x -= 1;
-        }
-
-        if (head.y - y > 0)
-        {
-            y += 1;
-        }
-        else if (y - head.y > 0)
-        {
-            y -= 1;
-        }
-    }
-};
-
-constexpr bool operator==(const Pos& lhs, const Pos& rhs)
-{
-    return lhs.x == rhs.x && lhs.y == rhs.y;
-}
-
-constexpr bool operator!=(const Pos& lhs, const Pos& rhs)
-{
-    return lhs.x != rhs.x || lhs.y != rhs.y;
-}
-
-struct PosHashFunction {
-    size_t operator()(const Pos& pos) const
-    {
-        return pos.x + (pos.y << 8);
     }
 };
 
@@ -168,8 +76,8 @@ uint32_t day09_part1(std::ifstream& input)
         Move& move = moves[i];
         for (int step = 0; step < move.steps; ++step)
         {
-            head.move_toward(move.direction);
-            tail.move_toward(head);
+            head.moveToward(move.direction);
+            tail.moveToward(head);
             
             tail_positions.insert(tail);
         }
@@ -194,11 +102,11 @@ uint32_t day09_part2(std::ifstream& input)
         Move& move = moves[i];
         for (int step = 0; step < move.steps; ++step)
         {
-            knots[0].move_toward(move.direction);
+            knots[0].moveToward(move.direction);
 
             for (int k = 1; k < knots_count; ++k)
             {
-                knots[k].move_toward(knots[k-1]);
+                knots[k].moveToward(knots[k-1]);
             }
 
             tail_positions.insert(knots[knots_count - 1]);
