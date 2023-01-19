@@ -16,6 +16,7 @@
 #include "solvers/day10.h"
 #include "solvers/day11.h"
 #include "solvers/day12.h"
+#include "solvers/day13.h"
 
 using std::cout;
 
@@ -90,11 +91,11 @@ int main(int argc, char *argv[])
     }
 
     cout << "### Running Part 1 ###\n";
-    cout << "Result: " << day12_part1(fileStream) << "\n";
+    cout << "Result: " << day13_part1(fileStream) << "\n";
 
     fileStream.seekg(0);
 
     cout << "\n";
     cout << "### Running Part 2 ###\n";
-    cout << "Result: " << day12_part2(fileStream) << "\n";
+    cout << "Result: " << day13_part2(fileStream) << "\n";
 }
